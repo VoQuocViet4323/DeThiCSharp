@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DeThi.Models.BacSi>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaBS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenBS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChuyenKhoa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoNamKN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DienThoai)
+        </th>
+        <th>
+            Tiem Kham
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaBS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenBS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChuyenKhoa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoNamKN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TienKham)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaBS }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaBS }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaBS })
+            </td>
+        </tr>
+    }
+
+</table>

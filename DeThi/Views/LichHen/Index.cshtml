@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DeThi.Models.LichHen>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("Index", "LichHen", FormMethod.Post))
+{
+    @Html.Label("Tim kiem ten benh nhan va ten bac si: ")
+    @Html.TextBox("TenBN")
+    @Html.DropDownList("TenBS", (IEnumerable<SelectListItem>)ViewBag.TenBS, "All", new { @class = "form-control" })
+    <button type="submit" class="btn btn-danger">Search</button>
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaLH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BenhNhan.MaBN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BacSi.MaBS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayHen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LyDo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaLH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BenhNhan.MaBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BacSi.MaBS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayHen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LyDo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaLH }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaLH }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaLH })
+            </td>
+        </tr>
+    }
+
+</table>

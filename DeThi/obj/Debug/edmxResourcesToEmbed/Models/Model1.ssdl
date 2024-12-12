@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLBVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BacSi">
+    <Key>
+      <PropertyRef Name="MaBS" />
+    </Key>
+    <Property Name="MaBS" Type="int" Nullable="false" />
+    <Property Name="TenBS" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChuyenKhoa" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoNamKN" Type="int" />
+    <Property Name="DienThoai" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="BenhNhan">
+    <Key>
+      <PropertyRef Name="MaBN" />
+    </Key>
+    <Property Name="MaBN" Type="int" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgaySinh" Type="datetime" />
+    <Property Name="GioiTinh" Type="bit" />
+    <Property Name="DienThoai" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="LichHen">
+    <Key>
+      <PropertyRef Name="MaLH" />
+    </Key>
+    <Property Name="MaLH" Type="int" Nullable="false" />
+    <Property Name="MaBN" Type="int" />
+    <Property Name="MaBS" Type="int" />
+    <Property Name="NgayHen" Type="datetime" />
+    <Property Name="LyDo" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK_LichHen_ToBacSi">
+    <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1" />
+    <End Role="LichHen" Type="Self.LichHen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BacSi">
+        <PropertyRef Name="MaBS" />
+      </Principal>
+      <Dependent Role="LichHen">
+        <PropertyRef Name="MaBS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LichHen_ToBenhNhan">
+    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1" />
+    <End Role="LichHen" Type="Self.LichHen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BenhNhan">
+        <PropertyRef Name="MaBN" />
+      </Principal>
+      <Dependent Role="LichHen">
+        <PropertyRef Name="MaBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLBVModelStoreContainer">
+    <EntitySet Name="BacSi" EntityType="Self.BacSi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BenhNhan" EntityType="Self.BenhNhan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LichHen" EntityType="Self.LichHen" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_LichHen_ToBacSi" Association="Self.FK_LichHen_ToBacSi">
+      <End Role="BacSi" EntitySet="BacSi" />
+      <End Role="LichHen" EntitySet="LichHen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LichHen_ToBenhNhan" Association="Self.FK_LichHen_ToBenhNhan">
+      <End Role="BenhNhan" EntitySet="BenhNhan" />
+      <End Role="LichHen" EntitySet="LichHen" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

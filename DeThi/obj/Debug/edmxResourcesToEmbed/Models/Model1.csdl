@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLBVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BacSi">
+    <Key>
+      <PropertyRef Name="MaBS" />
+    </Key>
+    <Property Name="MaBS" Type="Int32" Nullable="false" />
+    <Property Name="TenBS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChuyenKhoa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoNamKN" Type="Int32" />
+    <Property Name="DienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="LichHen" Relationship="Self.FK_LichHen_ToBacSi" FromRole="BacSi" ToRole="LichHen" />
+  </EntityType>
+  <EntityType Name="BenhNhan">
+    <Key>
+      <PropertyRef Name="MaBN" />
+    </Key>
+    <Property Name="MaBN" Type="Int32" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+    <Property Name="GioiTinh" Type="Boolean" />
+    <Property Name="DienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="LichHen" Relationship="Self.FK_LichHen_ToBenhNhan" FromRole="BenhNhan" ToRole="LichHen" />
+  </EntityType>
+  <EntityType Name="LichHen">
+    <Key>
+      <PropertyRef Name="MaLH" />
+    </Key>
+    <Property Name="MaLH" Type="Int32" Nullable="false" />
+    <Property Name="MaBN" Type="Int32" />
+    <Property Name="MaBS" Type="Int32" />
+    <Property Name="NgayHen" Type="DateTime" Precision="3" />
+    <Property Name="LyDo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BacSi" Relationship="Self.FK_LichHen_ToBacSi" FromRole="LichHen" ToRole="BacSi" />
+    <NavigationProperty Name="BenhNhan" Relationship="Self.FK_LichHen_ToBenhNhan" FromRole="LichHen" ToRole="BenhNhan" />
+  </EntityType>
+  <Association Name="FK_LichHen_ToBacSi">
+    <End Role="BacSi" Type="Self.BacSi" Multiplicity="0..1" />
+    <End Role="LichHen" Type="Self.LichHen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BacSi">
+        <PropertyRef Name="MaBS" />
+      </Principal>
+      <Dependent Role="LichHen">
+        <PropertyRef Name="MaBS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LichHen_ToBenhNhan">
+    <End Role="BenhNhan" Type="Self.BenhNhan" Multiplicity="0..1" />
+    <End Role="LichHen" Type="Self.LichHen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BenhNhan">
+        <PropertyRef Name="MaBN" />
+      </Principal>
+      <Dependent Role="LichHen">
+        <PropertyRef Name="MaBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLBVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BacSi" EntityType="Self.BacSi" />
+    <EntitySet Name="BenhNhan" EntityType="Self.BenhNhan" />
+    <EntitySet Name="LichHen" EntityType="Self.LichHen" />
+    <AssociationSet Name="FK_LichHen_ToBacSi" Association="Self.FK_LichHen_ToBacSi">
+      <End Role="BacSi" EntitySet="BacSi" />
+      <End Role="LichHen" EntitySet="LichHen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LichHen_ToBenhNhan" Association="Self.FK_LichHen_ToBenhNhan">
+      <End Role="BenhNhan" EntitySet="BenhNhan" />
+      <End Role="LichHen" EntitySet="LichHen" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
